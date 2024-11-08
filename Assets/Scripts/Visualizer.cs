@@ -7,11 +7,10 @@ using static SimpleVisualizer;
 public class Visualizer : MonoBehaviour
 {
     public LSystemGenerator lSystem;
-    List<Vector3> positions = new List<Vector3>();
 
     public RoadHelper roadHelper;
     public StructureHelper structureHelper;
-
+    public int roadLength = 8;
     private int length = 8;
     private float angle = 90;
 
@@ -33,6 +32,14 @@ public class Visualizer : MonoBehaviour
 
     public void Start()
     {
+        CreateTown();
+    }
+
+    public void CreateTown()
+    {
+        length = roadLength;
+        roadHelper.Reset();
+        structureHelper.Reset();
         var sequence = lSystem.GenerateSentence();
         VisualSequence(sequence);
     }
@@ -45,7 +52,6 @@ public class Visualizer : MonoBehaviour
         Vector3 direction = Vector3.forward;
         Vector3 tempPosition = Vector3.zero;
 
-        positions.Add(currentPosition);
 
         foreach (var letter in sequence)
         {
@@ -57,7 +63,6 @@ public class Visualizer : MonoBehaviour
                 case EncodingLetters.save:
                     savePoints.Push(new AgentParameters
                     {
-                        position = currentPosition,
                         direction = direction,
                         length = Length
                     });
@@ -80,7 +85,6 @@ public class Visualizer : MonoBehaviour
                     currentPosition += direction * length;
                     roadHelper.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
                     Length -= 2;
-                    positions.Add(currentPosition);
                     break;
                 case EncodingLetters.turnRight:
                     direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
