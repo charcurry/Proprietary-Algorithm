@@ -11,6 +11,10 @@ public class SpawnManager : MonoBehaviour
     public int buildingCount = 10;
     //public float spacing = 10f; // Distance between buildings
     public Vector2 heightRange = new(1f, 10f);
+
+    public Vector2 xRange = new(-100, 100);
+    public Vector2 zRange = new(-100, 100);
+
     public float spawnDelay;
 
     IEnumerator SpawnBuildings()
@@ -45,8 +49,8 @@ public class SpawnManager : MonoBehaviour
         List<Vector3> points = new List<Vector3>();
         for (int i = 0; i < buildingCount; i++)
         {
-            float x = Random.Range(-100, 100);
-            float z = Random.Range(-100, 100);
+            float x = Random.Range(xRange.x, xRange.y);
+            float z = Random.Range(zRange.x, zRange.y);
             if (points.Contains(new Vector3(x, 0, z))) continue;
             points.Add(new Vector3(x, 0, z));
         }
