@@ -252,6 +252,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b98670921701cab4580f9658609094e5, type: 2}
   buildingCount: 1000
   heightRange: {x: 5, y: 20}
+  xRange: {x: -100, y: 100}
+  zRange: {x: -100, y: 100}
   spawnDelay: 1e-25
 --- !u!4 &606532689
 Transform:
